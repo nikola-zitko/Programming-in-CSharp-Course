@@ -8,38 +8,43 @@ namespace Task3
 {
 
     class Task3 {
-        public struct BankAccount
+        enum TipRacuna{
+            Ziro=1,
+            Tekuci=2,
+            Stednja=3
+             
+        }
+        struct BankAccount
         {
-            public BankAccount(double x, double y, string z) {
-                BrojRacuna = x;
-                IznosNaRacunu = y;
-                VrstaRacuna = z;
+            public BankAccount(double broj, double iznos, TipRacuna tip) {
+                this.BrojRacuna = broj;
+                this.IznosNaRacunu = iznos;
+                this.VrstaRacuna = tip;
             }
             public double BrojRacuna { get; }
             public double IznosNaRacunu { get; }
-            public string VrstaRacuna { get; }
+            public TipRacuna VrstaRacuna { get; }
         }
 
         static void Main(string[] args) {
             List<BankAccount> Racuni = new List<BankAccount>();
             
-            Racuni.Add(new BankAccount(1, 0, "tekuci"));
-            Racuni.Add(new BankAccount(2, 0, "tekuci"));
-            Racuni.Add(new BankAccount(3, 0, "ziro"));
-            Racuni.Add(new BankAccount(4, 0, "stednja"));
-            Racuni.Add(new BankAccount(5, 0, "tekuci"));
+            Racuni.Add(new BankAccount(1, 0, TipRacuna.Stednja));
+            Racuni.Add(new BankAccount(2, 0, TipRacuna.Stednja));
+            Racuni.Add(new BankAccount(3, 0, TipRacuna.Tekuci));
+            Racuni.Add(new BankAccount(4, 0, TipRacuna.Tekuci));
+            Racuni.Add(new BankAccount(5, 0, TipRacuna.Ziro));
 
             int exit = 0;
-            int odabir;
-            
+          
             do {
                 Console.WriteLine("1. Unos novog računa      2. Ispis računa     3. Izlaz");
+                int odabir;
                 Int32.TryParse(Console.ReadLine(), out odabir);
                 switch (odabir) {
                     case (1):
                         double brojracuna, iznos;
                         int choice;
-                        string tip;
                         Console.WriteLine("Unesite broj racuna: ");
                         Double.TryParse(Console.ReadLine(), out brojracuna);
                         Console.WriteLine("Unesite iznos racuna: ");
@@ -50,13 +55,12 @@ namespace Task3
                             Int32.TryParse(Console.ReadLine(), out choice);
                             
                         } while (choice < 1 && choice > 3);
-                        if (choice == 1)
-                            tip = "ziro";
-                        else if (choice == 2)
-                            tip = "tekuci";
-                        else
-                            tip = "stednja";
-                        Racuni.Add(new BankAccount(brojracuna, iznos, tip));
+                        
+                        string tip = Enum.GetName(typeof(TipRacuna), choice);
+                        TipRacuna TipRacuna;
+                        Enum.TryParse(tip, out TipRacuna);
+                        
+                        Racuni.Add(new BankAccount(brojracuna, iznos, TipRacuna));
 
                         break;
                     case (2):

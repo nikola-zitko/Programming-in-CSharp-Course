@@ -10,9 +10,8 @@ namespace Task2
     {
         static void Main(string[] args) {
 
-            int varInt;
-
             Console.WriteLine("Unesite integer: ");
+            int varInt;
             Int32.TryParse(Console.ReadLine(), out varInt);
 
             try {

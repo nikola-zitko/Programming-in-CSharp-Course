@@ -13,15 +13,20 @@ namespace Task1
             //Currency,  Integer,  Scientific, Fixed-point, General, Number, Hexadecimal
             
             Console.WriteLine("Unesi prvi broj: ");
-            string num1 = Console.ReadLine();
+            double num1;
+            while (!double.TryParse(Console.ReadLine(), out num1)) {
+                Console.WriteLine("Krivi unos! Unesi prvi broj: ");
+            }
             Console.WriteLine("Unesi drugi broj: ");
-            string num2 = Console.ReadLine();
+            double num2;
+            while (!double.TryParse(Console.ReadLine(), out num2) || num2 == 0) {
+                Console.WriteLine("Krivi unos! Unesi drugi broj: ");
+            }
 
             try {
-                int number1 = Int32.Parse(num1);
-                int number2 = Int32.Parse(num2);
-                double rez = number1 / (double)number2;
-
+               
+                double rez = num1 / num2;
+                
                 //currency
                 Console.WriteLine(rez.ToString("C", CultureInfo.CurrentCulture));
                 //integer
@@ -39,7 +44,7 @@ namespace Task1
 
             }
             catch (Exception e){
-                Console.WriteLine("Unable to parse, exception: " + e);
+                Console.WriteLine("Unable to convert to Int, exception: " + e);
             }
 
         }
